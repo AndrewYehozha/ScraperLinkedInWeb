@@ -1,0 +1,56 @@
+.menu-btn-login, .menu-btn-register {
+  text-decoration: none;
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: all 0.5s;
+}
+
+button.menu-btn-login, button.menu-btn-register {
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+}
+
+a.link-active {
+  background-color: rgba(202, 202, 202, 0.90);
+  font-weight: 800;
+}
+
+button.link-active {
+  font-size: 16px;
+  font-weight: 600;
+  background-size: 100% 2px;
+}
+
+@media (max-width: 449px) {
+  .login-menu-btn-normal {
+    display: none;
+  }
+
+  .login-menu-btn-mobile {
+    display: block;
+  }
+}
+
+@media (min-width: 450px) {
+  .menu-btn-login {
+    margin-right: 15px;
+  }
+
+  .menu-btn-register {
+    margin-right: 30px;
+  }
+
+  .login-menu-btn-mobile {
+    display: none;
+  }
+
+  .login-menu-btn-normal {
+    display: block;
+  }
+}
+
+@media (max-width: 800px) {
+  .menu-btn-register {
+    margin-right: 15px;
+  }
+}
