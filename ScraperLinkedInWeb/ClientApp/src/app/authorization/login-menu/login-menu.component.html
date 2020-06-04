@@ -1,0 +1,28 @@
+<div class="login-menu-btn-mobile">
+  <div class="navbar-nav" *ngIf="!(isAuthenticated | async)">
+    <a class="menu-btn-login" mat-list-item [routerLink]="['/login']" [routerLinkActive]="['link-active']">Login</a>
+    <a class="menu-btn-register" mat-list-item [routerLink]="['/register']" [routerLinkActive]="['link-active']">Register</a>
+  </div>
+
+  <div class="navbar-nav" *ngIf="isAuthenticated | async">
+    <a class="menu-btn-profile" mat-list-item [routerLink]="['/profile']" [routerLinkActive]="['link-active']">My Profile</a>
+    <a class="menu-btn-settings" mat-list-item [routerLink]="['/settings']" [routerLinkActive]="['link-active']">Settings</a>
+    <a class="menu-btn-logout" mat-list-item [routerLink]="['/logout']">Logout</a>
+  </div>
+</div>
+
+<div class="login-menu-btn-normal">
+  <div class="navbar-nav" *ngIf="!(isAuthenticated | async)">
+    <button class="menu-btn-login" mat-flat-button color="primary" [routerLink]="['/login']" [routerLinkActive]="['link-active']">Login</button>
+    <button class="menu-btn-register" mat-flat-button color="primary" [routerLink]="['/register']" [routerLinkActive]="['link-active']">Register</button>
+  </div>
+
+  <div class="navbar-nav" *ngIf="isAuthenticated | async">
+    <button mat-button [matMenuTriggerFor]="beforeMenu">Hello, {{ userName | async }} <mat-icon>account_circle</mat-icon></button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <a class="menu-btn-profile" mat-menu-item [routerLink]="['/profile']" [routerLinkActive]="['link-active']">My Profile</a>
+      <a class="menu-btn-settings" mat-menu-item [routerLink]="['/settings']" [routerLinkActive]="['link-active']">Settings</a>
+      <a class="menu-btn-logout" mat-menu-item [routerLink]="['/logout']">Logout</a>
+    </mat-menu>
+  </div>
+</div>
