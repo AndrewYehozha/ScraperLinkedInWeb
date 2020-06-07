@@ -1,26 +1,3 @@
-.register-header {
-  margin: 20px 0 20px 0;
-}
-
-.center-column {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.center-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-
-.form-register-field {
-  margin-bottom: 15px;
-}
-
 .form-register-buttons {
   margin-top: 30px;
 }
@@ -32,4 +9,10 @@
 .btn-login {
   margin-left: 20px;
   text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .flex-direction-column {
+    flex-direction: column;
+  }
 }

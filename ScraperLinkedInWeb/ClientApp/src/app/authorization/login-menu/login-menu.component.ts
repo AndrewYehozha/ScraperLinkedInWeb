@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login-menu',
+  selector: 'app-login-menu-component',
   templateUrl: './login-menu.component.html',
   styleUrls: ['./login-menu.component.css']
 })

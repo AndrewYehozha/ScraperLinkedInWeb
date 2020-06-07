@@ -1,0 +1,70 @@
+<div>
+  <div class="center-column">
+    <h2 class="form-header">My Profile</h2>
+    <form name="form" (ngSubmit)="f.form.valid && saveProfile()" #f="ngForm" novalidate>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !firstName.valid }">
+          <mat-form-field>
+            <input matInput placeholder="First Name" type="text" name="firstName" [(ngModel)]="model.FirstName" #firstName="ngModel" required pattern="^\D+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.FirstName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!firstName.value">First Name is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!firstName.value && !firstName.valid">First Name must contain <strong>only characters</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-field" [ngClass]="{ 'has-error': !lastName.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Last Name" type="text" name="lastName" [(ngModel)]="model.LastName" #lastName="ngModel" required pattern="^\D+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.LastName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!lastName.value">Last Name is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!lastName.value && !lastName.valid">Last Name must contain <strong>only characters</strong></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !email.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Email" type="email" name="email" [(ngModel)]="model.Email" #email="ngModel" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Email=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!email.value">Email is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!email.value && !email.valid">Please enter a valid email address</mat-error>
+          </mat-form-field>
+        </div>
+        <div [ngClass]="{ 'has-error': !dateOfBirthday.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Date of Birthday" [matDatepicker]="picker" (click)="picker.open()" [min]="minDateOfBirthday" [max]="maxDateOfBirthday" name="dateOfBirthday" [(ngModel)]="model.DateOfBirthday" #dateOfBirthday="ngModel" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column justify-content-start">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !dateOfBirthday.valid }">
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput placeholder="555-555-1234" type="tel" name="telephone" [(ngModel)]="model.Phone" #phone="ngModel" required pattern="(\+?\d[- .]*){7,13}">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Phone=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!phone.value">Telephone is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!phone.value && !phone.valid"><strong>Invalid</strong> telephone</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row">
+        <button class="button-save font-size-15" mat-raised-button color="primary" [disabled]="loading">Save</button>
+        <a class="btn-change-password" [routerLink]="['/change-password']">Change Password</a>
+      </div>
+    </form>
+  </div>
+</div>
+

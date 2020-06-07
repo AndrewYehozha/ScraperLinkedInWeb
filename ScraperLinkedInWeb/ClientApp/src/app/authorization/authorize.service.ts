@@ -29,8 +29,8 @@ export interface UnauthorizedAuthenticationResult {
 
 export enum AuthenticationResultStatus {
   Success = 200,
-  Unauthorized = 401,
-  Fail
+  Fail = 400,
+  Unauthorized = 401
 }
 
 @Injectable({
@@ -48,14 +48,14 @@ export class AuthorizeService {
 
   public async signIn(authorizationRequest: AuthorizationRequest): Promise<IAuthenticationResult> {
     try {
-      return this.http.post<AuthorizationResponse>(environment.baseServerUrl + '/api/v1/accounts/signin', JSON.stringify(authorizationRequest), this.httpOptions)
+      return await this.http.post<AuthorizationResponse>(environment.baseServerUrl + '/api/v1/accounts/signin', JSON.stringify(authorizationRequest), this.httpOptions)
         .toPromise()
         .then(
           response => {
             switch (response.StatusCode) {
               case AuthenticationResultStatus.Success:
                 this.cookieService.set("token", response.Token, new Date(response.TokenExpires));
-                this.cookieService.set("userName", response.Account.FirstName);
+                this.cookieService.set("userName", response.Account.FirstName, new Date(response.TokenExpires));
                 this.isAuthCheck = true;
                 return this.success();
 
@@ -77,7 +77,7 @@ export class AuthorizeService {
 
   public async signUp(registrationRequest: RegistrationRequest): Promise<IAuthenticationResult> {
     try {
-      return this.http.post<AuthorizationResponse>(environment.baseServerUrl + '/api/v1/accounts/signup', JSON.stringify(registrationRequest), this.httpOptions)
+      return await this.http.post<AuthorizationResponse>(environment.baseServerUrl + '/api/v1/accounts/signup', JSON.stringify(registrationRequest), this.httpOptions)
         .toPromise()
         .then(
           response => {
@@ -119,6 +119,10 @@ export class AuthorizeService {
       observer.next(this.cookieService.get("userName"));
       observer.complete();
     });
+  }
+
+  public getToken(): string {
+    return this.cookieService.get("token");
   }
 
   private success(): IAuthenticationResult {

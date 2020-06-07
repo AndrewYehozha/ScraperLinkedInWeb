@@ -1,81 +1,77 @@
-<div id="topElem"></div>
 <div>
-  <p class="center-row error-message error-message-header" *ngIf="this.errorMessage">
-    <mat-icon>report</mat-icon>
-    <mat-error><strong> Error: {{ errorMessage }} </strong></mat-error>
-  </p>
-
   <div class="center-column">
-    <h2 class="register-header">Register</h2>
+    <h2 class="form-header">Register</h2>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
 
-      <div class="form-register-field" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
-        <mat-form-field>
-          <input matInput placeholder="First Name" type="text" name="firstName" [(ngModel)]="model.FirstName" #firstName="ngModel" required pattern="^\D+$">
-          <button mat-button *ngIf="firstName.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.model.FirstName=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-error class="help-block validation-message" *ngIf="isNullOrEmpty(firstName.value)">First Name is <strong>required</strong></mat-error>
-          <mat-error class="help-block validation-message" *ngIf="!isNullOrEmpty(firstName.value) && !firstName.valid">First Name must contain <strong>only characters</strong></mat-error>
-        </mat-form-field>
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+          <mat-form-field>
+            <input matInput placeholder="First Name" type="text" name="firstName" [(ngModel)]="model.FirstName" #firstName="ngModel" required pattern="^\D+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.FirstName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!firstName.value">First Name is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!firstName.value && !firstName.valid">First Name must contain <strong>only characters</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-field" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Last Name" type="text" name="lastName" [(ngModel)]="model.LastName" #lastName="ngModel" required pattern="^\D+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.LastName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!lastName.value">Last Name is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!lastName.value && !lastName.valid">Last Name must contain <strong>only characters</strong></mat-error>
+          </mat-form-field>
+        </div>
       </div>
 
-      <div class="form-register-field" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-        <mat-form-field>
-          <input matInput placeholder="Last Name" type="text" name="lastName" [(ngModel)]="model.LastName" #lastName="ngModel" required pattern="^\D+$">
-          <button mat-button *ngIf="lastName.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.model.LastName=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-error class="help-block validation-message" *ngIf="isNullOrEmpty(lastName.value)">Last Name is <strong>required</strong></mat-error>
-          <mat-error class="help-block validation-message" *ngIf="!isNullOrEmpty(lastName.value) && !lastName.valid">Last Name must contain <strong>only characters</strong></mat-error>
-        </mat-form-field>
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Email" type="email" name="email" [(ngModel)]="model.Email" #email="ngModel" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Email=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!email.value">Email is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!email.value && !email.valid">Please enter a valid email address</mat-error>
+          </mat-form-field>
+        </div>
+        <div [ngClass]="{ 'has-error': f.submitted && !dateOfBirthday.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Date of Birthday" [matDatepicker]="picker" (click)="picker.open()" [min]="minDateOfBirthday" [max]="maxDateOfBirthday" name="dateOfBirthday" [(ngModel)]="model.DateOfBirthday" #dateOfBirthday="ngModel" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
       </div>
 
-      <div class="form-register-field" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-        <mat-form-field>
-          <input matInput placeholder="Email" type="email" name="email" [(ngModel)]="model.Email" #email="ngModel" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
-          <button mat-button *ngIf="email.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Email=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-error class="help-block validation-message" *ngIf="isNullOrEmpty(email.value)">Email is <strong>required</strong></mat-error>
-          <mat-error class="help-block validation-message" *ngIf="!isNullOrEmpty(email.value) && !email.valid">Please enter a valid email address</mat-error>
-        </mat-form-field>
-      </div>
-
-      <div [ngClass]="{ 'has-error': f.submitted && !dateOfBirthday.valid }">
-        <mat-form-field>
-          <input matInput placeholder="Date of Birthday" [matDatepicker]="picker" [min]="minDateOfBirthday" [max]="maxDateOfBirthday" name="dateOfBirthday" [(ngModel)]="model.DateOfBirthday" #dateOfBirthday="ngModel" required readonly>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <div class="form-register-field" [ngClass]="{ 'has-error': f.submitted && !dateOfBirthday.valid }">
-        <mat-form-field>
-          <mat-label>Phone</mat-label>
-          <input matInput placeholder="555-555-1234" type="tel" name="telephone" [(ngModel)]="model.Phone" #phone="ngModel" required pattern="(\+?\d[- .]*){7,13}">
-          <button mat-button *ngIf="phone.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Phone=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-error class="help-block validation-message" *ngIf="isNullOrEmpty(phone.value)">Telephone is <strong>required</strong></mat-error>
-          <mat-error class="help-block validation-message" *ngIf="!isNullOrEmpty(phone.value) && !phone.valid"><strong>Invalid</strong> telephone</mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="form-register-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <mat-form-field>
-          <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="model.Password" #password="ngModel" autocomplete="on" required pattern="((?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9].{7,})" />
-          <button mat-button *ngIf="password.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Password=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-error class="help-block validation-message" *ngIf="isNullOrEmpty(password.value)">Password is <strong>required</strong></mat-error>
-          <mat-error class="help-block validation-message" *ngIf="!isNullOrEmpty(password.value) && !password.valid">Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</mat-error>
-        </mat-form-field>
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': f.submitted && !dateOfBirthday.valid }">
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput placeholder="555-555-1234" type="tel" name="telephone" [(ngModel)]="model.Phone" #phone="ngModel" required pattern="(\+?\d[- .]*){7,13}">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Phone=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!phone.value">Telephone is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!phone.value && !phone.valid"><strong>Invalid</strong> telephone</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+          <mat-form-field>
+            <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="model.Password" #password="ngModel" autocomplete="on" required pattern="((?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9].{7,})" />
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Password=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!password.value">Password is <strong>required</strong></mat-error>
+            <mat-error class="help-block validation-message" *ngIf="!!password.value && !password.valid">Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</mat-error>
+          </mat-form-field>
+        </div>
       </div>
 
       <div class="center-row form-register-buttons">
-        <button mat-raised-button color="primary" [disabled]="loading" class="btn-register">Register</button>
-        <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+        <button class="btn-register font-size-15" mat-raised-button color="primary" [disabled]="loading">Register</button>
         <a class="btn-login" [routerLink]="['/login']">Cancel</a>
       </div>
     </form>

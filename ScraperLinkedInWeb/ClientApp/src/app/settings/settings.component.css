@@ -1,0 +1,48 @@
+.button-save {
+  margin-top: 15px;
+  width: 80px;
+}
+
+.validation-message-check-box-isSearch {
+  margin-top: -10px;
+  font-size: 75%;
+}
+
+@media (max-width: 767px) {
+  .linkedin-token-field {
+    width: auto;
+  }
+
+  .container-issearch {
+    width: 200px;
+    justify-content: left;
+    align-items: start;
+  }
+
+  .flex-direction-column {
+    flex-direction: column;
+  }
+
+  .validation-message-check-box-isSearch {
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 768px) {
+  .linkedin-token-field {
+    width: 445px;
+  }
+
+  .container-issearch {
+    width: 450px;
+  }
+
+  .field-issearch-chiefs {
+    margin-left: 5px;
+    flex: 20;
+  }
+
+  .field-issearch-developers {
+    flex: 17;
+  }
+}
