@@ -1,0 +1,6 @@
+<div [ngClass]="{ 'display-block': (isDisplayMessage | async), 'hidden-block': !(isDisplayMessage | async) }">
+  <p *ngIf="!!this.message" class="center-row message-header success-message" [ngClass]="{ 'success-message': message.type === 'success', 'error-message': message.type === 'error' }">
+    <mat-icon>report</mat-icon>
+    <strong> {{ message.text }} </strong>
+  </p>
+</div>

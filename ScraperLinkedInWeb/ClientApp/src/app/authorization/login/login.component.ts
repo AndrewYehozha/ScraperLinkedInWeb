@@ -3,23 +3,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthorizationRequest } from '../../models/request/AuthorizationRequest';
 import { AuthorizeService, AuthenticationResultStatus } from '../authorize.service';
+import { AlertMessageService } from '../../services/alert-message.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-component',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
-  model: AuthorizationRequest;
-  loading = false;
-  returnUrl: string;
-  errorMessage: string;
+  public model: AuthorizationRequest;
+  public loading = false;
+  public errorMessage: string;
+  private returnUrl: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authorizeService: AuthorizeService) { }
+    private authorizeService: AuthorizeService,
+    private alertMessageService: AlertMessageService) { }
 
   async ngOnInit() {
     this.model = new AuthorizationRequest();
@@ -36,10 +38,10 @@ export class LoginComponent implements OnInit {
         break;
       case AuthenticationResultStatus.Fail:
       case AuthenticationResultStatus.Unauthorized:
-        this.errorMessage = result.message;
+        this.alertMessageService.error(result.message);
         break;
       default:
-        this.errorMessage = `Invalid status result ${(result as any).status}.`;
+        this.alertMessageService.error(`Invalid status result ${(result as any).status}.`);
         break;
     }
 

@@ -3,7 +3,7 @@
     <mat-toolbar color="primary" class="example-toolbar">
       <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
       <h1><a class="example-app-name" [routerLink]="['/home']">Scraper</a></h1>
-      <app-login-menu class="login-menu-normal"></app-login-menu>
+      <app-login-menu-component class="login-menu-normal"></app-login-menu-component>
     </mat-toolbar>
 
     <mat-sidenav-container class="example-sidenav-container"
@@ -12,14 +12,16 @@
                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>
           <a mat-list-item [routerLink]="['/home']" [routerLinkActive]="['link-active']">Home</a>
-          <a mat-list-item [routerLink]="['/counter']" [routerLinkActive]="['link-active']">Counter</a>
+          <a mat-list-item [routerLink]="['/companies']" [routerLinkActive]="['link-active']">Companies</a>
           <a mat-list-item [routerLink]="['/fetch-data']" [routerLinkActive]="['link-active']">Fetch data</a>
-          <app-login-menu class="login-menu-mobile"></app-login-menu>
+          <app-login-menu-component class="login-menu-mobile"></app-login-menu-component>
         </mat-nav-list>
       </mat-sidenav>
 
       <mat-sidenav-content>
+        <div id="topElem"></div>
         <div class="container">
+          <app-alert-message-component></app-alert-message-component>
           <router-outlet></router-outlet>
         </div>
       </mat-sidenav-content>

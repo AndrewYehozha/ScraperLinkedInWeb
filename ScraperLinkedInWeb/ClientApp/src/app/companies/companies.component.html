@@ -1,0 +1,99 @@
+<div>
+  <div class="example-loading-shade loading-shade" *ngIf="isImportFileResult">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="center-column">
+    <h2 class="form-header">Companies</h2>
+
+    <div class="table-tools">
+      <div class="center-row">
+        <mat-form-field>
+          <mat-label>Search</mat-label>
+          <!--[disabled]="isLoading"-->
+          <input matInput matTooltip="Min 3 characters" (keyup)="applySearch(searchValue.value)" name="searchValue" [(ngModel)]="searchCompaniesRequest.SearchValue" #searchValue="ngModel" placeholder="Name, Technologies" autocomplete="off">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <div>
+          <mat-form-field class="date-picker">
+            <input matInput placeholder="Start Date" [disabled]="isLoading" [matDatepicker]="picker1" (click)="picker1.open()" [max]="endDate.value" (dateChange)="changeDate()" name="startDate" [(ngModel)]="searchCompaniesRequest.StartDate" #startDate="ngModel" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="date-picker">
+            <input matInput placeholder="End Date" [disabled]="isLoading" [matDatepicker]="picker2" (click)="picker2.open()" [min]="startDate.value" (dateChange)="changeDate()" name="endDate" [(ngModel)]="searchCompaniesRequest.EndDate" #endDate="ngModel" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="button-import">
+        <input #importCompaniesInput hidden="true" type="file" name="file" onclick="this.value=null" (change)="importCompanies($event)" accept=".csv" />
+        <button mat-raised-button color="primary" matTooltip="Max file size: 2 MB" (click)="importCompaniesInput.click()" [disabled]="isImportFileResult">Import CSV File</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container-table mat-elevation-z8">
+    <div class="example-loading-shade" *ngIf="isLoading || (totalCount == 0)">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="list-emty" *ngIf="!isLoading && (totalCount == 0)">EMPTY</div>
+    </div>
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="dataSource" class="example-table"
+             matSort matSortActive="OrganizationName" matSortDisableClear matSortDirection="asc">
+
+        <!-- Organization Name Column -->
+        <ng-container matColumnDef="OrganizationName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Organization Name</th>
+          <td mat-cell *matCellDef="let row">{{row.OrganizationName}}</td>
+        </ng-container>
+
+
+        <!-- Headquarters Location Column -->
+        <ng-container matColumnDef="HeadquartersLocation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Headquarters Location</th>
+          <td mat-cell *matCellDef="let row">{{row.HeadquartersLocation}}</td>
+        </ng-container>
+
+        <!-- Website Column -->
+        <ng-container matColumnDef="Website">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Website</th>
+          <td mat-cell *matCellDef="let row"><a>{{row.Website}}</a></td>
+        </ng-container>
+
+        <!-- Specialties Column -->
+        <ng-container matColumnDef="Specialties">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Specialties</th>
+          <td mat-cell *matCellDef="let row">{{row.Specialties}}</td>
+        </ng-container>
+
+        <!--AmountEmployees Column-->
+        <ng-container matColumnDef="AmountEmployees">
+          <th mat-header-cell *matHeaderCellDef disableClear>Amount Employees</th>
+          <td mat-cell *matCellDef="let row">{{row.AmountEmployees}}</td>
+        </ng-container>
+
+        <!--Date Created Column-->
+        <ng-container matColumnDef="DateCreated">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Created</th>
+          <td mat-cell *matCellDef="let row">{{row.DateCreated}}</td>
+        </ng-container>
+
+        <!--Execution Status Column-->
+        <ng-container matColumnDef="ExecutionStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Execution Status</th>
+          <td mat-cell *matCellDef="let row">{{row.ExecutionStatus}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [length]="totalCount" [pageSize]="10" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <StartupObject>ScraperLinkedInWeb.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,25 +32,67 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\alert-message\alert-message.component.spec.ts" />
+    <None Remove="ClientApp\src\app\alert-message\alert-message.component.ts" />
+    <None Remove="ClientApp\src\app\change-password\change-password.component.spec.ts" />
+    <None Remove="ClientApp\src\app\change-password\change-password.component.ts" />
     <None Remove="ClientApp\src\app\material-design\material-design.module.ts" />
     <None Remove="ClientApp\src\app\models\AuthorizationRequest.ts" />
     <None Remove="ClientApp\src\app\models\entities\AccountViewModel.ts" />
+    <None Remove="ClientApp\src\app\models\entities\CompanyViewModel.ts" />
+    <None Remove="ClientApp\src\app\models\entities\SearchCompaniesViewModel.ts" />
+    <None Remove="ClientApp\src\app\models\request\AccountRequest.ts" />
+    <None Remove="ClientApp\src\app\models\request\ChangePasswordRequest.ts" />
     <None Remove="ClientApp\src\app\models\request\RegistrationRequest.ts" />
+    <None Remove="ClientApp\src\app\models\request\SearchCompaniesRequest.ts" />
+    <None Remove="ClientApp\src\app\models\request\SettingsRequest.ts" />
+    <None Remove="ClientApp\src\app\models\response\AccountResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\AuthorizationResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\BaseResponse.ts" />
+    <None Remove="ClientApp\src\app\models\response\ImportCompaniesResponse.ts" />
+    <None Remove="ClientApp\src\app\models\response\SearchCompaniesResponse.ts" />
+    <None Remove="ClientApp\src\app\models\response\SettingsResponse.ts" />
+    <None Remove="ClientApp\src\app\models\Types\ExecutionStatus.ts" />
+    <None Remove="ClientApp\src\app\models\Types\ScraperStatus.ts" />
+    <None Remove="ClientApp\src\app\models\Types\SortedFieldTypes.ts" />
+    <None Remove="ClientApp\src\app\profile\profile.component.spec.ts" />
+    <None Remove="ClientApp\src\app\profile\profile.component.ts" />
+    <None Remove="ClientApp\src\app\services\alert-message.service.spec.ts" />
+    <None Remove="ClientApp\src\app\services\alert-message.service.ts" />
+    <None Remove="ClientApp\src\app\settings\settings.component.spec.ts" />
+    <None Remove="ClientApp\src\app\settings\settings.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\alert-message\alert-message.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\alert-message\alert-message.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\change-password\change-password.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\change-password\change-password.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\material-design\material-design.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\entities\AccountViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\entities\CompanyViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\entities\SearchCompaniesViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\request\AccountRequest.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\request\AuthorizationRequest.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\request\ChangePasswordRequest.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\request\RegistrationRequest.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\request\SearchCompaniesRequest.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\request\SettingsRequest.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\response\AccountResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\AuthorizationResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\BaseResponse.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\services\" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\response\ImportCompaniesResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\response\SearchCompaniesResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\response\SettingsResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Types\ExecutionStatus.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Types\ScraperStatus.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Types\SortedFieldTypes.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\profile\profile.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\profile\profile.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\alert-message.service.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\alert-message.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\settings\settings.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\settings\settings.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

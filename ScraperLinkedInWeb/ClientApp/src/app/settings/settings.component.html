@@ -1,0 +1,76 @@
+<div>
+  <div class="center-column">
+    <h2 class="form-header">Settings</h2>
+    <form name="form" (ngSubmit)="f.form.valid && saveSettings()" #f="ngForm" novalidate>
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !login.valid }">
+          <mat-form-field>
+            <input matInput placeholder="LinkedIn Login" type="email" name="login" [(ngModel)]="model.Login" #login="ngModel" email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Login=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="validation-message" *ngIf="!!login.value && !login.valid">Please enter a valid email address</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field" [ngClass]="{ 'has-error': !password.valid }">
+          <mat-form-field>
+            <input matInput placeholder="LinkedIn Password" type="password" name="password" [(ngModel)]="model.Password" #password="ngModel" autocomplete="off">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Password=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-field" [ngClass]="{ 'has-error': !token.valid }">
+        <mat-form-field class="linkedin-token-field">
+          <input matInput matTooltip="LinkedIn session cookie (li_at)" placeholder="LinkedIn Token (li_at)" type="text" name="token" [(ngModel)]="model.Token" #token="ngModel" required>
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Token=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-error class="help-block validation-message" *ngIf="!token.value">LinkedIn Token (li_at) is <strong>required</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !technologiesSearch.valid }">
+          <mat-form-field>
+            <input matInput matTooltip="For example: .NET, JS, Java Script, TypeScript" placeholder="Search Technologies" type="text" name="technologiesSearch" [(ngModel)]="model.TechnologiesSearch" #technologiesSearch="ngModel" required>
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.TechnologiesSearch=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!technologiesSearch.value">Search Technologies is <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field" [ngClass]="{ 'has-error': !rolesSearch.valid }">
+          <mat-form-field>
+            <input matInput matTooltip="For example: CEO, CIO, CTO" placeholder="Search Roles" type="text" name="rolesSearch" [(ngModel)]="model.RolesSearch" #rolesSearch="ngModel" required>
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.RolesSearch=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error class="help-block validation-message" *ngIf="!rolesSearch.value">Search Roles is <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row container-issearch flex-direction-column">
+        <div class="form-field field-issearch-chiefs" [ngClass]="{ 'has-error': !isSearchChiefs.valid }">
+          <mat-checkbox name="isSearchChiefs" class="field-margin-right" [(ngModel)]="model.IsSearchChiefs" #isSearchChiefs="ngModel">Search Chiefs</mat-checkbox>
+        </div>
+
+        <div class="form-field field-issearch-developers" [ngClass]="{ 'has-error': !isSearchDevelopers.valid }">
+          <mat-checkbox name="isSearchDevelopers" [(ngModel)]="model.IsSearchDevelopers" #isSearchDevelopers="ngModel">Search Developers</mat-checkbox>
+        </div>
+      </div>
+      <div class="center-row">
+        <mat-error class="help-block validation-message validation-message-check-box-isSearch" *ngIf="!isSearchChiefs.value && !isSearchDevelopers.value">Select the type of employee you want to search</mat-error>
+      </div>
+
+      <div class="center-row">
+        <button class="button-save font-size-15" mat-raised-button color="primary" [disabled]="loading">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

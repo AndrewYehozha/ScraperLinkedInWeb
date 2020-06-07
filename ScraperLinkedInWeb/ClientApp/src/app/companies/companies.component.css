@@ -1,0 +1,31 @@
+
+
+/* Column Widths */
+.mat-column-OrganizationName,
+.mat-column-HeadquartersLocation,
+.mat-column-Website,
+.mat-column-AmountEmployees,
+.mat-column-DateCreated,
+.mat-column-ExecutionStatus {
+  max-width: 64px;
+  word-wrap: break-word;
+}
+
+.mat-column-Specialties {
+  max-width: 124px;
+  word-wrap: break-word;
+}
+
+.mat-column-HeadquartersLocation,
+.mat-column-Website,
+.mat-column-AmountEmployees,
+.mat-column-DateCreated,
+.mat-column-Specialties {
+  padding: 0 10px 0 10px;
+}
+
+.mat-column-AmountEmployees,
+.mat-column-DateCreated,
+.mat-column-ExecutionStatus {
+  text-align: center;
+}
