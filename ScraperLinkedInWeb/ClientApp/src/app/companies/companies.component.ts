@@ -13,6 +13,7 @@ import { SearchCompaniesRequest } from '../models/request/SearchCompaniesRequest
 import { SortedCompaniesFieldTypes } from '../models/Types/SortedFieldTypes';
 import { SearchCompaniesResponse } from '../models/response/SearchCompaniesResponse';
 import { SearchCompaniesViewModel } from '../models/entities/SearchCompaniesViewModel';
+import { ExecutionStatus } from '../models/Types/ExecutionStatus';
 
 @Component({
   selector: 'app-companies-component',
@@ -26,6 +27,7 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
   public dataSource: MatTableDataSource<SearchCompaniesViewModel>;
   public totalCount = 0;
   public searchCompaniesRequest = new SearchCompaniesRequest();
+  public executionStatus = ExecutionStatus;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -34,8 +36,8 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
     })
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private http: HttpClient,
     private authorizeService: AuthorizeService,
@@ -45,6 +47,7 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.searchCompaniesRequest.StartDate = new Date();
     this.searchCompaniesRequest.EndDate = new Date();
+    this.searchCompaniesRequest.ExecutionStatus = this.executionStatus.Any;
   }
 
   ngAfterViewInit() {
@@ -59,12 +62,11 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
           this.searchCompaniesRequest.IsAscending = this.sort.direction == 'asc';
           this.searchCompaniesRequest.PageNumber = this.paginator.pageIndex + 1;
           this.searchCompaniesRequest.PageSize = this.paginator.pageSize;
-
           await this.getCompanies();
           return observableOf([]);
         }),
-        map(() => {})
-    ).subscribe();
+        map(() => { })
+      ).subscribe();
   }
 
   public async applySearch(value: string) {
@@ -92,7 +94,7 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
     this.cdr.detectChanges();
 
     try {
-      await this.http.post<SearchCompaniesResponse>(environment.baseServerUrl + '/api/v1/companies/search', JSON.stringify(this.searchCompaniesRequest) , this.httpOptions)
+      await this.http.post<SearchCompaniesResponse>(environment.baseServerUrl + '/api/v1/companies/search', JSON.stringify(this.searchCompaniesRequest), this.httpOptions)
         .toPromise()
         .then(
           response => {
@@ -190,5 +192,58 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
     }
 
     this.isImportFileResult = false;
+  }
+
+  public async exportCompanies() {
+    this.isImportFileResult = true;
+    if (this.totalCount == 0) {
+      this.alertMessageService.error('Companies list is empty');
+      this.isImportFileResult = false;
+      return;
+    };
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.authorizeService.getToken()}`,
+        'Content-Type': 'application/json'
+      })
+    }
+
+    await this.http.post(environment.baseServerUrl + '/api/v1/companies/export', JSON.stringify(this.searchCompaniesRequest), httpOptions)
+      .subscribe(data => {
+      },
+        error => {
+          if (error.status == 200) {
+            var anchor = document.createElement("a");
+            anchor.download = `companies_${this.getFormatDate()}.csv`;
+            anchor.href = window.URL.createObjectURL(new Blob([error.error.text], { type: "application/vnd.ms-excel" }));
+            anchor.click();
+            this.alertMessageService.success("Completed file download");
+          }
+          else {
+            this.alertMessageService.error("Completed file download");
+          }
+        });
+
+    this.isImportFileResult = false;
+  }
+
+  public getExecutionStatuses(): Array<string> {
+    var keys = Object.keys(this.executionStatus);
+    return keys.slice(keys.length / 2);
+  }
+
+  public async onExecutionStatusChange(ob) {
+    await this.applySearch('');
+  }
+
+  private getFormatDate() {
+    var dateNow = new Date();
+    var formatDate = `${dateNow.getMonth() + 1}-${dateNow.getDate()}-${dateNow.getFullYear()}-${dateNow.getHours()}-${dateNow.getUTCMinutes()}-${dateNow.getSeconds()}`;
+    return formatDate;
+  }
+
+  public getCompanyByIdRoute(id) {
+    return `/company?id=${id}`;
   }
 }

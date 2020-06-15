@@ -1,0 +1,108 @@
+<div>
+  <div class="example-loading-shade loading-shade" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="center-column">
+    <h2 class="form-header">Company</h2>
+    <form name="form" novalidate>
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Organization Name" type="text" name="orgName" [(ngModel)]="model.OrganizationName" #orgName="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field status-field center-row">
+          <mat-label>Status:  </mat-label>
+          <mat-icon class="execution-status-created status-icon" *ngIf="model.ExecutionStatus == executionStatus.Created" matTooltip="Created">horizontal_rule</mat-icon>
+          <mat-icon class="execution-status-queued status-icon" color="primary" *ngIf="model.ExecutionStatus == executionStatus.Queued" matTooltip="Queued">query_builder</mat-icon>
+          <mat-icon class="execution-status-success status-icon" *ngIf="model.ExecutionStatus == executionStatus.Success" matTooltip="Done">done</mat-icon>
+          <mat-icon class="execution-status-failed status-icon" *ngIf="model.ExecutionStatus == executionStatus.Failed" matTooltip="Failed">close</mat-icon>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Location" type="text" name="location" [(ngModel)]="model.HeadquartersLocation" #location="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Chiefs" type="text" name="founders" [(ngModel)]="model.Founders" #founders="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Facebook" type="text" name="facebook" [(ngModel)]="model.Facebook" #facebook="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Twitter" type="text" name="twitter" [(ngModel)]="model.Twitter" #twitter="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Amount Employees" type="text" name="amountEmployees" [(ngModel)]="model.AmountEmployees" #amountEmployees="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Date Created" [matDatepicker]="picker" type="text" name="dateCreated" [(ngModel)]="model.DateCreated" #dateCreated="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column status-field">
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Phone" type="text" name="phone" [(ngModel)]="model.PhoneNumber" #phone="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <input matInput placeholder="CrunchBase URL" type="text" name="organizationURL" [(ngModel)]="model.OrganizationURL" #organizationURL="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <input matInput placeholder="LinkedIn URL" type="text" name="linkedInURL" [(ngModel)]="model.LinkedInURL" #linkedInURL="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <textarea matInput placeholder="Specialties" type="text" name="specialties" [(ngModel)]="model.Specialties" #specialties="ngModel" readonly></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <textarea matInput placeholder="Industry" type="text" name="industry" [(ngModel)]="model.Industry" #industry="ngModel" readonly></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

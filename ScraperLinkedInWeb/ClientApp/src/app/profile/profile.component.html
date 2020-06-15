@@ -4,7 +4,7 @@
     <form name="form" (ngSubmit)="f.form.valid && saveProfile()" #f="ngForm" novalidate>
 
       <div class="center-row flex-direction-column">
-        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !firstName.valid }">
+        <div class="form-field field-margin-right-40" [ngClass]="{ 'has-error': !firstName.valid }">
           <mat-form-field>
             <input matInput placeholder="First Name" type="text" name="firstName" [(ngModel)]="model.FirstName" #firstName="ngModel" required pattern="^\D+$">
             <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.FirstName=''">
@@ -27,7 +27,7 @@
       </div>
 
       <div class="center-row flex-direction-column">
-        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !email.valid }">
+        <div class="form-field field-margin-right-40" [ngClass]="{ 'has-error': !email.valid }">
           <mat-form-field>
             <input matInput placeholder="Email" type="email" name="email" [(ngModel)]="model.Email" #email="ngModel" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
             <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="this.model.Email=''">
@@ -47,7 +47,7 @@
       </div>
 
       <div class="center-row flex-direction-column justify-content-start">
-        <div class="form-field field-margin-right" [ngClass]="{ 'has-error': !dateOfBirthday.valid }">
+        <div class="form-field field-margin-right-40" [ngClass]="{ 'has-error': !dateOfBirthday.valid }">
           <mat-form-field>
             <mat-label>Phone</mat-label>
             <input matInput placeholder="555-555-1234" type="tel" name="telephone" [(ngModel)]="model.Phone" #phone="ngModel" required pattern="(\+?\d[- .]*){7,13}">

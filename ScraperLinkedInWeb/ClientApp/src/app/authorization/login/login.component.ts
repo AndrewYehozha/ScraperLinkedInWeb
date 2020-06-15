@@ -14,7 +14,6 @@ import { AlertMessageService } from '../../services/alert-message.service';
 export class LoginComponent implements OnInit {
   public model: AuthorizationRequest;
   public loading = false;
-  public errorMessage: string;
   private returnUrl: string;
 
   constructor(

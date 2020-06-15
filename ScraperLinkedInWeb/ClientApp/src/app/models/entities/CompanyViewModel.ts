@@ -8,14 +8,14 @@ export class CompanyViewModel {
   HeadquartersLocation: string;
   Website: string;
   LinkedInURL: string;
-  LogoUrl: string;
+  LogoUrl: string; //
   Specialties: string;
   ExecutionStatus: ExecutionStatus;
   Facebook: string;
   Twitter: string;
   PhoneNumber: string;
   AmountEmployees: string;
-  Industry: string;
+  Industry: string; //
   AccountId: number;
   LastScrapedPage: number;
   DateCreated: Date;

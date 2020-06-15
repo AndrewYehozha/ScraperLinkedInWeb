@@ -36,6 +36,8 @@
     <None Remove="ClientApp\src\app\alert-message\alert-message.component.ts" />
     <None Remove="ClientApp\src\app\change-password\change-password.component.spec.ts" />
     <None Remove="ClientApp\src\app\change-password\change-password.component.ts" />
+    <None Remove="ClientApp\src\app\company\company.component.spec.ts" />
+    <None Remove="ClientApp\src\app\company\company.component.ts" />
     <None Remove="ClientApp\src\app\material-design\material-design.module.ts" />
     <None Remove="ClientApp\src\app\models\AuthorizationRequest.ts" />
     <None Remove="ClientApp\src\app\models\entities\AccountViewModel.ts" />
@@ -49,6 +51,7 @@
     <None Remove="ClientApp\src\app\models\response\AccountResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\AuthorizationResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\BaseResponse.ts" />
+    <None Remove="ClientApp\src\app\models\response\CompanyResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\ImportCompaniesResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\SearchCompaniesResponse.ts" />
     <None Remove="ClientApp\src\app\models\response\SettingsResponse.ts" />
@@ -68,6 +71,8 @@
     <TypeScriptCompile Include="ClientApp\src\app\alert-message\alert-message.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\change-password\change-password.component.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\change-password\change-password.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\company\company.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\company\company.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\material-design\material-design.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\entities\AccountViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\entities\CompanyViewModel.ts" />
@@ -81,6 +86,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\models\response\AccountResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\AuthorizationResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\BaseResponse.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\response\CompanyResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\ImportCompaniesResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\SearchCompaniesResponse.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\response\SettingsResponse.ts" />

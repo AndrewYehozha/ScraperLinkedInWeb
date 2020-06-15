@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseServerUrl: "http://scraperlincedinserver.com"
+  baseServerUrl: "http://scraperlincedinserver.com",
 };
 
 /*

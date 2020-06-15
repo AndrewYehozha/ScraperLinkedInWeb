@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { CompaniesComponent } from './companies/companies.component';
+import { CompanyComponent } from './company/company.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginComponent } from './authorization/login/login.component';
 import { RegisterComponent } from './authorization/register/register.component';
@@ -41,6 +43,7 @@ import { AlertMessageService } from './services/alert-message.service';
     ChangePasswordComponent,
     SettingsComponent,
     CompaniesComponent,
+    CompanyComponent,
     FetchDataComponent
   ],
   imports: [
@@ -58,6 +61,7 @@ import { AlertMessageService } from './services/alert-message.service';
       { path: 'settings', component: SettingsComponent, canActivate: [AuthorizeGuard] },
       { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthorizeGuard] },
       { path: 'companies', component: CompaniesComponent, canActivate: [AuthorizeGuard] },
+      { path: 'company', component: CompanyComponent, canActivate: [AuthorizeGuard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
 
       // otherwise redirect to home

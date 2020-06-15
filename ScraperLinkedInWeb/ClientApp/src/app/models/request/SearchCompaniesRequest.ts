@@ -1,4 +1,5 @@
 import { SortedCompaniesFieldTypes } from "../Types/SortedFieldTypes";
+import { ExecutionStatus } from "../Types/ExecutionStatus";
 
 export class SearchCompaniesRequest {
   SearchValue: string;
@@ -8,4 +9,5 @@ export class SearchCompaniesRequest {
   EndDate: Date; //ToDo
   PageNumber: number;
   PageSize: number;
+  ExecutionStatus: ExecutionStatus;
 }
