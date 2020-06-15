@@ -36,6 +36,11 @@ div.example-loading-shade > mat-spinner {
   flex-direction: row;
 }
 
+
+.field-margin-right-20 {
+  margin-right: 20px;
+}
+
 .table-tools {
   display: flex;
   width: 95%;
@@ -47,7 +52,12 @@ div.example-loading-shade > mat-spinner {
     margin-right: 10px;
   }
 
-  .table-tools > div > div > .date-picker {
+  .table-tools > .filter-fields .filter-exec-status {
+      width: 120px;
+      margin-left: 20px;
+  }
+
+  .table-tools div.table-tools-group-date > .date-picker {
     width: 120px;
     margin-left: 20px;
   }
@@ -69,6 +79,18 @@ div.example-loading-shade > mat-spinner {
 .form-field {
   margin-bottom: 15px;
 }
+
+.form-field-large {
+    width: 100%;
+}
+
+  .form-field-large mat-form-field {
+    width: 100%;
+  }
+
+  .form-field-large textarea {
+    height: 70px;
+  }
 
 .content {
   margin: 10px;
@@ -129,29 +151,119 @@ div.example-loading-shade > mat-spinner {
       width: 100%;
     }
 
+      .example-container-table > .example-table-container > table a {
+        color: black;
+      }
+
+.mat-sort-header-container,
+.mat-header-cell {
+  justify-content: center;
+  color: black;
+}
+
 .list-emty {
   color: #000000c7;
   font-weight: 600;
   font-size: 25px;
 }
+
+.execution-status-created {
+  font-weight: bold;
+}
+
+.execution-status-queued {
+  font-weight: bold;
+  color: #5f1cd6;
+}
+
+.execution-status-success {
+  color: green;
+  font-weight: bold;
+}
+
+.execution-status-failed {
+  color: red;
+  font-weight: bold;
+}
+
 /*End Tables*/
 
 
 
-@media (max-width: 767px) {
-  .table-tools > div {
+@media (max-width: 980px) {
+  .table-tools div.table-tools-group {
     flex-direction: column;
   }
 
-    .table-tools > div > mat-form-field {
-      margin-right: 0;
-      width: 260px;
-    }
+  .table-tools div.table-tools-group {
+    margin-right: 0;
+    width: 220px;
+  }
 
-    .table-tools > div > div > .date-picker {
+  .table-tools > .table-tools-buttons-group {
+    align-self: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .table-tools div.table-tools-group .filter-exec-status {
+    width: 204px;
+    margin-left: 0;
+  }
+
+    .table-tools div.table-tools-group > .date-picker {
       margin-left: 10px;
       margin-right: 10px;
     }
+}
+
+@media (max-width: 767px) {
+  .table-tools {
+    align-items: start;
+    margin: 0 2% 0 2%;
+  }
+
+    .table-tools > div.filter-fields > mat-form-field {
+      margin-left: 10px;
+    }
+
+    .table-tools > div.filter-fields {
+      margin-left: 10px;
+    }
+
+    .table-tools > .table-tools-buttons-group {
+      margin-right: 10px;
+    }
+
+    .table-tools > .button-export {
+      font-size: 13px;
+      margin-top: auto;
+      margin-right: 10px;
+      align-self: flex-end;
+    }
+
+    .table-tools div.table-tools-group {
+      width: 160px;
+    }
+
+    .table-tools div.table-tools-group-date {
+      width: 140px;
+    }
+
+    .table-tools div.table-tools-group .filter-exec-status,
+    .table-tools div.table-tools-group .filter-search {
+      width: 150px;
+    }
+
+    .table-tools > .table-tools-buttons-group button {
+      font-size: 13px;
+    }
+}
+
+@media (max-width: 628px) {
+  .table-tools {
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 449px) {
@@ -159,23 +271,23 @@ div.example-loading-shade > mat-spinner {
     flex-direction: column;
   }
 
-  .table-tools > div.center-row > mat-form-field {
-    margin-left: 10px;
-  }
+    .table-tools > div.filter-fields > mat-form-field {
+      margin-left: 10px;
+    }
 
-  .table-tools > .center-row {
-    align-items: start;
-  }
+    .table-tools > .filter-fields {
+      align-items: start;
+    }
 
-  .table-tools > .button-import {
-    font-size: 13px;
-    margin-top: auto;
-    margin-right: 10px;
-    align-self: flex-end;
-  }
+    .table-tools > .button-export {
+      font-size: 13px;
+      margin-top: auto;
+      margin-right: 10px;
+      align-self: flex-end;
+    }
 
-    .table-tools > .button-import > button {
-      font-size: 12px;
+    .table-tools > .table-tools-buttons-group {
+      align-self: center;
     }
 }
 
@@ -194,7 +306,7 @@ div.example-loading-shade > mat-spinner {
     margin: 20px;
   }
 
-  .field-margin-right {
+  .field-margin-right-40 {
     margin-right: 40px;
   }
 

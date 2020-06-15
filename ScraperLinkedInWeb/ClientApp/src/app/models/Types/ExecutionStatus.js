@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var ExecutionStatus;
 (function (ExecutionStatus) {
+    ExecutionStatus[ExecutionStatus["Any"] = 99] = "Any";
     ExecutionStatus[ExecutionStatus["Created"] = 0] = "Created";
     ExecutionStatus[ExecutionStatus["Queued"] = 1] = "Queued";
     ExecutionStatus[ExecutionStatus["Success"] = 2] = "Success";

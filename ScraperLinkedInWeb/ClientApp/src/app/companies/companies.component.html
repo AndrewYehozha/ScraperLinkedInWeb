@@ -7,16 +7,24 @@
     <h2 class="form-header">Companies</h2>
 
     <div class="table-tools">
-      <div class="center-row">
-        <mat-form-field>
-          <mat-label>Search</mat-label>
-          <!--[disabled]="isLoading"-->
-          <input matInput matTooltip="Min 3 characters" (keyup)="applySearch(searchValue.value)" name="searchValue" [(ngModel)]="searchCompaniesRequest.SearchValue" #searchValue="ngModel" placeholder="Name, Technologies" autocomplete="off">
-          <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-        <div>
+      <div class="filter-fields center-row">
+        <div class="table-tools-group">
+          <mat-form-field class="filter-search">
+            <mat-label>Search</mat-label>
+            <!--[disabled]="isLoading"-->
+            <input matInput matTooltip="Min 3 characters" (keyup)="applySearch(searchValue.value)" name="searchValue" [(ngModel)]="searchCompaniesRequest.SearchValue" #searchValue="ngModel" placeholder="Name, Technologies" autocomplete="off">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field class="filter-exec-status">
+            <mat-label>Execution Status</mat-label>
+            <mat-select [disabled]="isLoading" [(ngModel)]="searchCompaniesRequest.ExecutionStatus" name="searchExecutionStatus" #searchExecutionStatus="ngModel" (selectionChange)="onExecutionStatusChange($event)">
+              <mat-option *ngFor="let execStatus of getExecutionStatuses()" [value]="executionStatus[execStatus]"> {{ execStatus }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="table-tools-group table-tools-group-date">
           <mat-form-field class="date-picker">
             <input matInput placeholder="Start Date" [disabled]="isLoading" [matDatepicker]="picker1" (click)="picker1.open()" [max]="endDate.value" (dateChange)="changeDate()" name="startDate" [(ngModel)]="searchCompaniesRequest.StartDate" #startDate="ngModel" required readonly>
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -29,9 +37,14 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="button-import">
-        <input #importCompaniesInput hidden="true" type="file" name="file" onclick="this.value=null" (change)="importCompanies($event)" accept=".csv" />
-        <button mat-raised-button color="primary" matTooltip="Max file size: 2 MB" (click)="importCompaniesInput.click()" [disabled]="isImportFileResult">Import CSV File</button>
+      <div class="center-row table-tools-buttons-group">
+        <div class="field-margin-right-20">
+          <input #importCompaniesInput hidden="true" type="file" name="file" onclick="this.value=null" (change)="importCompanies($event)" accept=".csv" />
+          <button mat-raised-button color="primary" matTooltip="Max file size: 2 MB" (click)="importCompaniesInput.click()" [disabled]="isImportFileResult">Import CSV File</button>
+        </div>
+        <div class="button-export">
+          <button mat-raised-button color="primary" (click)="exportCompanies()" [disabled]="isImportFileResult">Export CSV File</button>
+        </div>
       </div>
     </div>
   </div>
@@ -49,9 +62,12 @@
         <!-- Organization Name Column -->
         <ng-container matColumnDef="OrganizationName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Organization Name</th>
-          <td mat-cell *matCellDef="let row">{{row.OrganizationName}}</td>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/company']" [queryParams]="{'id': row.Id}">
+              {{row.OrganizationName}}
+            </a>
+          </td>
         </ng-container>
-
 
         <!-- Headquarters Location Column -->
         <ng-container matColumnDef="HeadquartersLocation">
@@ -62,7 +78,11 @@
         <!-- Website Column -->
         <ng-container matColumnDef="Website">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Website</th>
-          <td mat-cell *matCellDef="let row"><a>{{row.Website}}</a></td>
+          <td mat-cell *matCellDef="let row">
+            <a target="_blank" rel="noopener noreferrer" href="{{row.Website}}">
+              {{row.Website}}
+            </a>
+          </td>
         </ng-container>
 
         <!-- Specialties Column -->
@@ -86,7 +106,12 @@
         <!--Execution Status Column-->
         <ng-container matColumnDef="ExecutionStatus">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Execution Status</th>
-          <td mat-cell *matCellDef="let row">{{row.ExecutionStatus}}</td>
+          <td mat-cell *matCellDef="let row">
+            <mat-icon class="execution-status-created" *ngIf="row.ExecutionStatus == executionStatus.Created" matTooltip="Created">horizontal_rule</mat-icon>
+            <mat-icon class="execution-status-queued" color="primary" *ngIf="row.ExecutionStatus == executionStatus.Queued" matTooltip="Queued">query_builder</mat-icon>
+            <mat-icon class="execution-status-success" *ngIf="row.ExecutionStatus == executionStatus.Success" matTooltip="Done">done</mat-icon>
+            <mat-icon class="execution-status-failed" *ngIf="row.ExecutionStatus == executionStatus.Failed" matTooltip="Failed">close</mat-icon>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -1,0 +1,13 @@
+mat-form-field input,
+mat-form-field textarea {
+  cursor: default;
+}
+
+.status-field {
+  width: 180px;
+  justify-content: start;
+}
+
+.status-icon {
+    margin-left: 40px;
+}
