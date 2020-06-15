@@ -30,7 +30,8 @@ export interface UnauthorizedAuthenticationResult {
 export enum AuthenticationResultStatus {
   Success = 200,
   Fail = 400,
-  Unauthorized = 401
+  Unauthorized = 401,
+  NotFound = 404
 }
 
 @Injectable({

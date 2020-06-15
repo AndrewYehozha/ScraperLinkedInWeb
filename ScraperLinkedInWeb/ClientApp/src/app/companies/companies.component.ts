@@ -200,7 +200,12 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
       this.alertMessageService.error('Companies list is empty');
       this.isImportFileResult = false;
       return;
-    };
+    }
+    else if (this.totalCount > 500) {
+      this.alertMessageService.error('Export limit. You are allowed to export not more than 500 companies at a time!');
+      this.isImportFileResult = false;
+      return;
+    }
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -209,21 +214,53 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
       })
     }
 
-    await this.http.post(environment.baseServerUrl + '/api/v1/companies/export', JSON.stringify(this.searchCompaniesRequest), httpOptions)
-      .subscribe(data => {
-      },
-        error => {
-          if (error.status == 200) {
-            var anchor = document.createElement("a");
-            anchor.download = `companies_${this.getFormatDate()}.csv`;
-            anchor.href = window.URL.createObjectURL(new Blob([error.error.text], { type: "application/vnd.ms-excel" }));
-            anchor.click();
-            this.alertMessageService.success("Completed file download");
-          }
-          else {
-            this.alertMessageService.error("Completed file download");
-          }
-        });
+    try {
+      await this.http.post<any>(environment.baseServerUrl + '/api/v1/companies/export', JSON.stringify(this.searchCompaniesRequest), httpOptions)
+        .toPromise()
+        .then(
+          response => {
+            switch (response.StatusCode) {
+              case AuthenticationResultStatus.Success:
+                var anchor = document.createElement("a");
+                anchor.download = `companies_${response.DateCreateUTC}.csv`;
+                anchor.href = window.URL.createObjectURL(new Blob([response.Content], { type: response.ContentType }));
+                anchor.click();
+                this.alertMessageService.success(`File download with ${response.ContentEntriesCount} companies completed`);
+                break;
+
+              case AuthenticationResultStatus.Unauthorized:
+              case AuthenticationResultStatus.NotFound:
+              case AuthenticationResultStatus.Fail:
+                this.alertMessageService.error(response.ErrorMessage);
+                break;
+
+              default:
+                this.alertMessageService.error("Invalid result status");
+            }
+          })
+        .catch(
+          error => {
+            this.alertMessageService.error(error.statusText);
+          });
+    } catch (silentError) {
+      this.alertMessageService.error(silentError);
+    }
+
+    //await this.http.post(environment.baseServerUrl + '/api/v1/companies/export', JSON.stringify(this.searchCompaniesRequest), httpOptions)
+    //  .subscribe(data => {
+    //  },
+    //    error => {
+    //      if (error.status == 200) {
+    //        var anchor = document.createElement("a");
+    //        anchor.download = `companies_${this.getFormatDate()}.csv`;
+    //        anchor.href = window.URL.createObjectURL(new Blob([error.error.text], { type: "application/vnd.ms-excel" }));
+    //        anchor.click();
+    //        this.alertMessageService.success("Completed file download");
+    //      }
+    //      else {
+    //        this.alertMessageService.error("Completed file download");
+    //      }
+    //    });
 
     this.isImportFileResult = false;
   }
