@@ -1,0 +1,47 @@
+
+
+/* Column Widths */
+.mat-column-FirstName,
+.mat-column-LastName,
+.mat-column-PersonLinkedIn,
+.mat-column-Job,
+.mat-column-Company,
+.mat-column-Email,
+.mat-column-DateTimeCreation,
+.mat-column-ProfileStatus {
+  max-width: 64px;
+  word-wrap: break-word;
+}
+
+.mat-column-FirstName,
+.mat-column-LastName,
+.mat-column-PersonLinkedIn,
+.mat-column-Job,
+.mat-column-Company,
+.mat-column-Email,
+.mat-column-TechStack,
+.mat-column-DateTimeCreation,
+.mat-column-ProfileStatus {
+  text-align: center;
+}
+
+.mat-column-LastName,
+.mat-column-PersonLinkedIn,
+.mat-column-Job,
+.mat-column-Company,
+.mat-column-Email,
+.mat-column-TechStack,
+.mat-column-DateTimeCreation {
+  padding: 0 10px 0 10px;
+}
+
+.mat-column-TechStack {
+  max-width: 124px;
+  white-space: nowrap;
+  overflow-y: hidden;
+  min-height: 60px;
+}
+
+.table-tools > .table-tools-buttons-group {
+  align-self: flex-end;
+}

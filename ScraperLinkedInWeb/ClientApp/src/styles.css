@@ -41,6 +41,10 @@ div.example-loading-shade > mat-spinner {
   margin-right: 20px;
 }
 
+.field-margin-buttom-20 {
+  margin-bottom: 20px;
+}
+
 .table-tools {
   display: flex;
   width: 95%;

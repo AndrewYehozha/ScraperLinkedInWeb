@@ -1,0 +1,97 @@
+<div>
+  <div class="example-loading-shade loading-shade" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="center-column">
+    <h2 class="form-header">Employee</h2>
+    <form name="form" novalidate>
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="First Name" type="text" name="firstName" [(ngModel)]="model.FirstName" #firstName="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Last Name" type="text" name="lastName" [(ngModel)]="model.LastName" #lastName="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Job" type="text" name="job" [(ngModel)]="model.Job" #job="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Profile Status" type="text" name="profileStatus" [(value)]="profileStatus" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Email" type="text" name="email" [(ngModel)]="model.Email" #email="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field>
+            <input matInput placeholder="Date Created" [matDatepicker]="picker" type="text" name="dateCreated" [(ngModel)]="model.DateTimeCreation" #dateCreated="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column status-field field-margin-buttom-20">
+        <div class="form-field field-margin-right-40">
+          <mat-form-field>
+            <input matInput placeholder="Company" type="text" name="company" [(ngModel)]="model.Company" #company="ngModel" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field field-show-company">
+          <a mat-button color="primary" [routerLink]="['/company']" [queryParams]="{'id': this.model.CompanyID}">Show Company</a>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <input matInput placeholder="LinkedIn URL" type="text" name="personLinkedIn" [(ngModel)]="model.PersonLinkedIn" #personLinkedIn="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <textarea matInput placeholder="Skills" type="text" name="techStack" [(ngModel)]="model.TechStack" #techStack="ngModel" readonly></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!--
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <input matInput placeholder="LinkedIn URL" type="text" name="linkedInURL" [(ngModel)]="model.LinkedInURL" #linkedInURL="ngModel" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="center-row flex-direction-column">
+        <div class="form-field form-field-large">
+          <mat-form-field>
+            <textarea matInput placeholder="Industry" type="text" name="industry" [(ngModel)]="model.Industry" #industry="ngModel" readonly></textarea>
+          </mat-form-field>
+        </div>
+      </div>-->
+    </form>
+  </div>
+</div>

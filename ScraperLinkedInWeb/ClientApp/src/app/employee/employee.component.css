@@ -9,10 +9,10 @@ mat-form-field textarea {
 }
 
 .status-icon {
-    margin-left: 40px;
+  margin-left: 40px;
 }
 
-.field-show-employees > a {
+.field-show-company > a {
   font-weight: bold;
   width: 180px;
 }

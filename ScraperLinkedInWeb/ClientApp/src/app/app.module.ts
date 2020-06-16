@@ -17,7 +17,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { AlertMessageComponent } from './alert-message/alert-message.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CompanyComponent } from './company/company.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { EmployeesComponent } from './employees/employees.component';
 import { LoginComponent } from './authorization/login/login.component';
 import { RegisterComponent } from './authorization/register/register.component';
 import { LogoutComponent } from './authorization/logout/logout.component';
@@ -44,7 +45,8 @@ import { AlertMessageService } from './services/alert-message.service';
     SettingsComponent,
     CompaniesComponent,
     CompanyComponent,
-    FetchDataComponent
+    EmployeeComponent,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,7 +64,8 @@ import { AlertMessageService } from './services/alert-message.service';
       { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthorizeGuard] },
       { path: 'companies', component: CompaniesComponent, canActivate: [AuthorizeGuard] },
       { path: 'company', component: CompanyComponent, canActivate: [AuthorizeGuard] },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'employee', component: EmployeeComponent, canActivate: [AuthorizeGuard] },
+      { path: 'employees', component: EmployeesComponent, canActivate: [AuthorizeGuard] },
 
       // otherwise redirect to home
       { path: '**', redirectTo: 'home' }

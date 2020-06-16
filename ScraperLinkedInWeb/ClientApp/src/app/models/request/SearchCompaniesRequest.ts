@@ -1,12 +1,12 @@
-import { SortedCompaniesFieldTypes } from "../Types/SortedFieldTypes";
+import { SortedCompaniesFieldTypes } from "../Types/SortedCompaniesFieldTypes";
 import { ExecutionStatus } from "../Types/ExecutionStatus";
 
 export class SearchCompaniesRequest {
   SearchValue: string;
-  SortedFieldTypes: SortedCompaniesFieldTypes;
+  SortedFieldType: SortedCompaniesFieldTypes;
   IsAscending: boolean;
-  StartDate: Date; //ToDo
-  EndDate: Date; //ToDo
+  StartDate: Date;
+  EndDate: Date;
   PageNumber: number;
   PageSize: number;
   ExecutionStatus: ExecutionStatus;

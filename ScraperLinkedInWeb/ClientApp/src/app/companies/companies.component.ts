@@ -10,7 +10,7 @@ import { AlertMessageService } from '../services/alert-message.service';
 import { environment } from '../../environments/environment';
 import { ImportCompaniesResponse } from '../models/response/ImportCompaniesResponse';
 import { SearchCompaniesRequest } from '../models/request/SearchCompaniesRequest';
-import { SortedCompaniesFieldTypes } from '../models/Types/SortedFieldTypes';
+import { SortedCompaniesFieldTypes } from '../models/Types/SortedCompaniesFieldTypes';
 import { SearchCompaniesResponse } from '../models/response/SearchCompaniesResponse';
 import { SearchCompaniesViewModel } from '../models/entities/SearchCompaniesViewModel';
 import { ExecutionStatus } from '../models/Types/ExecutionStatus';
@@ -58,7 +58,7 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
       .pipe(
         startWith({}),
         switchMap(async () => {
-          this.searchCompaniesRequest.SortedFieldTypes = SortedCompaniesFieldTypes[this.sort.active];
+          this.searchCompaniesRequest.SortedFieldType = SortedCompaniesFieldTypes[this.sort.active];
           this.searchCompaniesRequest.IsAscending = this.sort.direction == 'asc';
           this.searchCompaniesRequest.PageNumber = this.paginator.pageIndex + 1;
           this.searchCompaniesRequest.PageSize = this.paginator.pageSize;
@@ -72,7 +72,7 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
   public async applySearch(value: string) {
     if ((!!value && value.trim().length > 2) || value.trim().length == 0) {
       this.paginator.pageIndex = 0;
-      this.searchCompaniesRequest.SortedFieldTypes = SortedCompaniesFieldTypes[this.sort.active];
+      this.searchCompaniesRequest.SortedFieldType = SortedCompaniesFieldTypes[this.sort.active];
       this.searchCompaniesRequest.IsAscending = this.sort.direction == 'asc';
       this.searchCompaniesRequest.PageNumber = this.paginator.pageIndex + 1;
       this.searchCompaniesRequest.PageSize = this.paginator.pageSize;
@@ -197,7 +197,7 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
   public async exportCompanies() {
     this.isImportFileResult = true;
     if (this.totalCount == 0) {
-      this.alertMessageService.error('Companies list is empty');
+      this.alertMessageService.error('Table with companies is empty');
       this.isImportFileResult = false;
       return;
     }
@@ -272,12 +272,6 @@ export class CompaniesComponent implements AfterViewInit, OnInit {
 
   public async onExecutionStatusChange(ob) {
     await this.applySearch('');
-  }
-
-  private getFormatDate() {
-    var dateNow = new Date();
-    var formatDate = `${dateNow.getMonth() + 1}-${dateNow.getDate()}-${dateNow.getFullYear()}-${dateNow.getHours()}-${dateNow.getUTCMinutes()}-${dateNow.getSeconds()}`;
-    return formatDate;
   }
 
   public getCompanyByIdRoute(id) {
