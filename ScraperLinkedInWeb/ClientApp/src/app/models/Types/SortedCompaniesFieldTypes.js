@@ -10,4 +10,4 @@ var SortedCompaniesFieldTypes;
     SortedCompaniesFieldTypes[SortedCompaniesFieldTypes["ExecutionStatus"] = 5] = "ExecutionStatus";
     SortedCompaniesFieldTypes[SortedCompaniesFieldTypes["DateCreated"] = 6] = "DateCreated";
 })(SortedCompaniesFieldTypes = exports.SortedCompaniesFieldTypes || (exports.SortedCompaniesFieldTypes = {}));
-//# sourceMappingURL=SortedFieldTypes.js.map
+//# sourceMappingURL=SortedCompaniesFieldTypes.js.map

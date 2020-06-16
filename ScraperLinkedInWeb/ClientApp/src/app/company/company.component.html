@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="center-row flex-direction-column">
+      <div class="center-row flex-direction-column status-field">
         <div class="form-field field-margin-right-40">
           <mat-form-field>
             <input matInput placeholder="Amount Employees" type="text" name="amountEmployees" [(ngModel)]="model.AmountEmployees" #amountEmployees="ngModel" readonly>
@@ -64,11 +64,15 @@
         </div>
       </div>
 
-      <div class="center-row flex-direction-column status-field">
-        <div class="form-field">
+      <div class="center-row flex-direction-column">
+        <div class="form-field field-margin-right-40">
           <mat-form-field>
             <input matInput placeholder="Phone" type="text" name="phone" [(ngModel)]="model.PhoneNumber" #phone="ngModel" readonly>
           </mat-form-field>
+        </div>
+
+        <div class="form-field field-show-employees">
+          <a mat-button color="primary" [routerLink]="['/employees']" [queryParams]="{'companyId': this.model.Id}">Show Employees</a>
         </div>
       </div>
 

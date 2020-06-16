@@ -1,0 +1,127 @@
+<div>
+  <div class="example-loading-shade loading-shade" *ngIf="isImportFileResult">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="center-column">
+    <h2 class="form-header">Employees</h2>
+
+    <div class="table-tools">
+      <div class="filter-fields center-row">
+        <div class="table-tools-group">
+          <mat-form-field class="filter-search">
+            <mat-label>Search</mat-label>
+            <!--[disabled]="isLoading"-->
+            <input matInput matTooltip="Min 3 characters" (keyup)="applySearch(searchValue.value)" name="searchValue" [(ngModel)]="searchEmployeesRequest.SearchValue" #searchValue="ngModel" placeholder="First Name, Last Name, Company" autocomplete="off">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field class="filter-exec-status">
+            <mat-label>Profile Status</mat-label>
+            <mat-select [disabled]="isLoading" [(ngModel)]="searchEmployeesRequest.ProfileStatus" name="searchProfileStatus" #searchProfileStatus="ngModel" (selectionChange)="onProfileStatusChange($event)">
+              <mat-option *ngFor="let profStatus of getProfileStatuses()" [value]="profileStatus[profStatus]"> {{ profStatus }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="table-tools-group table-tools-group-date">
+          <mat-form-field class="date-picker">
+            <input matInput placeholder="Start Date" [disabled]="isLoading" [matDatepicker]="picker1" (click)="picker1.open()" [max]="endDate.value" (dateChange)="changeDate()" name="startDate" [(ngModel)]="searchEmployeesRequest.StartDate" #startDate="ngModel" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="date-picker">
+            <input matInput placeholder="End Date" [disabled]="isLoading" [matDatepicker]="picker2" (click)="picker2.open()" [min]="startDate.value" (dateChange)="changeDate()" name="endDate" [(ngModel)]="searchEmployeesRequest.EndDate" #endDate="ngModel" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="center-row table-tools-buttons-group">
+        <div class="button-export">
+          <button mat-raised-button color="primary" (click)="exportEmployees()" [disabled]="isImportFileResult">Export CSV File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container-table mat-elevation-z8">
+    <div class="example-loading-shade" *ngIf="isLoading || (totalCount == 0)">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="list-emty" *ngIf="!isLoading && (totalCount == 0)">EMPTY</div>
+    </div>
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="dataSource" class="example-table"
+             matSort matSortActive="FirstName" matSortDisableClear matSortDirection="asc">
+
+        <!-- First Name Column -->
+        <ng-container matColumnDef="FirstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>First Name</th>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/employee']" [queryParams]="{'id': row.Id}">
+              {{row.FirstName}}
+            </a>
+          </td>
+        </ng-container>
+
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="LastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Last Name</th>
+          <td mat-cell *matCellDef="let row">{{row.LastName}}</td>
+        </ng-container>
+
+        <!-- Person LinkedIn Column -->
+        <ng-container matColumnDef="PersonLinkedIn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>LinkedIn</th>
+          <td mat-cell *matCellDef="let row">
+            <a target="_blank" rel="noopener noreferrer" href="{{row.PersonLinkedIn}}">
+              {{row.PersonLinkedIn}}
+            </a>
+          </td>
+        </ng-container>
+
+        <!-- Job Column -->
+        <ng-container matColumnDef="Job">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Job</th>
+          <td mat-cell *matCellDef="let row">{{row.Job}}</td>
+        </ng-container>
+
+        <!-- Company Column -->
+        <ng-container matColumnDef="Company">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Company</th>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/company']" [queryParams]="{'id': row.CompanyID}">
+              {{row.Company}}
+            </a>
+          </td>
+        </ng-container>
+
+        <!--Email Column-->
+        <ng-container matColumnDef="Email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Email</th>
+          <td mat-cell *matCellDef="let row">{{row.Email}}</td>
+        </ng-container>
+
+        <!--DateTime Creation Column-->
+        <ng-container matColumnDef="DateTimeCreation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Created</th>
+          <td mat-cell *matCellDef="let row">{{row.DateTimeCreation}}</td>
+        </ng-container>
+
+        <!--Profile Status Column-->
+        <ng-container matColumnDef="ProfileStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Profile Status</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.ProfileStatus == profileStatus.Chief ? 'Chief' : 'Developer'}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [length]="totalCount" [pageSize]="10" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

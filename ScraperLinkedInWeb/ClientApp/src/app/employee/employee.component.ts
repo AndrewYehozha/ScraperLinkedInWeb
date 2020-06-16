@@ -1,23 +1,23 @@
 import { OnInit, Component } from "@angular/core";
-import { CompanyResponse } from "../models/response/CompanyResponse";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { AlertMessageService } from "../services/alert-message.service";
-import { ExecutionStatus } from "../models/Types/ExecutionStatus";
-import { CompanyViewModel } from "../models/entities/CompanyViewModel";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { AuthorizeService, AuthenticationResultStatus } from "../authorization/authorize.service";
+import { SuitableProfileResponse } from "../models/response/SuitableProfileResponse";
+import { SuitableProfileViewModel } from "../models/entities/SuitableProfileViewModel";
+import { ProfileStatus } from "../models/Types/ProfileStatus";
 
 @Component({
-  selector: 'app-company-component',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  selector: 'app-employee-component',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css']
 })
 
-export class CompanyComponent implements OnInit {
-  public model: CompanyViewModel;
+export class EmployeeComponent implements OnInit {
+  public model: SuitableProfileViewModel;
   public loading = false;
-  public executionStatus = ExecutionStatus;
+  public profileStatus: string = '';
   private queryId: any;
 
   private httpOptions = {
@@ -34,35 +34,33 @@ export class CompanyComponent implements OnInit {
     private alertMessageService: AlertMessageService) { }
 
   async ngOnInit() {
-    this.model = new CompanyViewModel();
+    this.model = new SuitableProfileViewModel();
     this.queryId = this.route.snapshot.queryParams['id'] || '/';
-
     if (this.queryId == '/' || !this.isNumber(this.queryId)) {
       this.alertMessageService.error("Invalid query parameters");
     }
     else {
-      await this.loadCompany();
+      await this.loadEmployee();
     }
-
-    this.model.ExecutionStatus = ExecutionStatus.Created;
   }
 
 
-  private async loadCompany() {
+  private async loadEmployee() {
     this.loading = true;
 
     try {
-      await this.http.get<CompanyResponse>(environment.baseServerUrl + '/api/v1/companies/company?id=' + this.queryId, this.httpOptions)
+      await this.http.get<SuitableProfileResponse>(environment.baseServerUrl + '/api/v1/suitable-profiles/suitable-profile?id=' + this.queryId, this.httpOptions)
         .toPromise()
         .then(
           response => {
             switch (response.StatusCode) {
               case AuthenticationResultStatus.Success:
-                if (response.CompanyViewModel != null) {
-                  this.model = response.CompanyViewModel;
+                if (response.SuitableProfileViewModel != null) {
+                  this.model = response.SuitableProfileViewModel;
+                  this.profileStatus = response.SuitableProfileViewModel.ProfileStatus == ProfileStatus.Chief ? "Chief" : "Developer";
                 }
                 else {
-                  this.alertMessageService.error("Company not found");
+                  this.alertMessageService.error("Employee not found");
                 }
                 break;
 
@@ -77,10 +75,11 @@ export class CompanyComponent implements OnInit {
             }
           },
           error => {
-            this.alertMessageService.error(error);
+            this.alertMessageService.error(error.message);
           })
         .catch(
           error => {
+            console.log(error.message);
             this.alertMessageService.error("Server is not available");
           });
     } catch (silentError) {
@@ -89,7 +88,6 @@ export class CompanyComponent implements OnInit {
 
     this.loading = false;
   }
-
 
   private isNumber(value) {
     return !isNaN(parseInt(value));
